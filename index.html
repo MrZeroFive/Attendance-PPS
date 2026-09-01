@@ -127,7 +127,7 @@ function makeMessage(){
   const leave=getNames("leave");
   const master=document.getElementById("master").value.trim() || "________________";
 
-  let msg=`*${cls}  |  ATTENDENCE*\n`;
+  let msg=`*${cls}  |  ATTENDANCE*\n`;
   msg+=`Date: ${document.getElementById("date").value}\n\n`;
   msg+=`*ABSENT STUDENTS*\n`;
 
@@ -147,7 +147,7 @@ function makeMessage(){
   }else{
     msg+="None";
   }
-  msg+=`\n\nForm Master: ${master}`;
+  msg+=`\n\nForm Master: *${master}*`;
 
   return msg;
 }
