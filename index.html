@@ -132,17 +132,21 @@ function makeMessage(){
   msg+=`*ABSENT STUDENTS*\n`;
 
   if(absent.length){
-    for(let i=0;i<absent.length;i+=2){
-      const a=absent[i];
-      const b=absent[i+1];
-      msg+=`${i/2+1}. ${a}${b ? " & "+b : ""}\n`;
-    }
+    absent.forEach((student,i)=>{
+      msg+=`${i+1}. ${student}\n`;
+    });
   }else{
     msg+="No absent students\n";
   }
 
   msg+=`\n*STUDENTS ON LEAVE*\n`;
-  msg+=leave.length ? leave.join(", ") : "None";
+  if(leave.length){
+    leave.forEach((student,i)=>{
+      msg+=`${i+1}. ${student}\n`;
+    });
+  }else{
+    msg+="None";
+  }
   msg+=`\n\nForm Master: ${master}`;
 
   return msg;
