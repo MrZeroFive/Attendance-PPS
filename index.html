@@ -1,1 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>App Under Maintenance</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0b0f19;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .maintenance-box {
+            width: 100%;
+            max-width: 600px;
+            padding: 50px 30px;
+        }
+
+        .icon {
+            font-size: 80px;
+            margin-bottom: 25px;
+            animation: rotate 3s linear infinite;
+        }
+
+        h1 {
+            font-size: 42px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 18px;
+            color: #aeb7c7;
+            line-height: 1.6;
+        }
+
+        .line {
+            width: 80px;
+            height: 4px;
+            background: #ffffff;
+            margin: 25px auto;
+            border-radius: 10px;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 20px;
+            border: 1px solid #ffffff;
+            border-radius: 30px;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 30px;
+            }
+
+            .icon {
+                font-size: 65px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="maintenance-box">
+
+        <div class="icon">⚙️</div>
+
+        <h1>APP UNDER MAINTENANCE</h1>
+
+        <div class="line"></div>
+
+        <p>
+            Our app is currently under maintenance.
+            <br>
+            We are working to improve your experience.
+            <br>
+            Please check back soon.
+        </p>
+
+        <div class="status">
+            TEMPORARILY UNAVAILABLE
+        </div>
+
+    </div>
+
+</body>
+</html>
