@@ -1,122 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>App Under Maintenance</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #0b0f19;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .maintenance-box {
-            width: 100%;
-            max-width: 600px;
-            padding: 50px 30px;
-        }
-
-        .icon {
-            font-size: 80px;
-            margin-bottom: 25px;
-            animation: rotate 3s linear infinite;
-        }
-
-        h1 {
-            font-size: 42px;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        p {
-            font-size: 18px;
-            color: #aeb7c7;
-            line-height: 1.6;
-        }
-
-        .line {
-            width: 80px;
-            height: 4px;
-            background: #ffffff;
-            margin: 25px auto;
-            border-radius: 10px;
-        }
-
-        .status {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 10px 20px;
-            border: 1px solid #ffffff;
-            border-radius: 30px;
-            font-size: 14px;
-            letter-spacing: 1px;
-        }
-
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 30px;
-            }
-
-            .icon {
-                font-size: 65px;
-            }
-
-            p {
-                font-size: 16px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f766e">
+  <link rel="manifest" href="./manifest.json">
+<title>ATTENDANCE</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:Arial,sans-serif; min-height:100vh;
+  background:#ffffff;
+  color:#0f172a; padding:18px 12px;
+}
+.container{max-width:620px;margin:auto}
+.card{
+  background:rgba(255,255,255,.96); border-radius:24px;
+  padding:22px; box-shadow:0 18px 50px rgba(0,0,0,.25);
+}
+h1{
+  text-align:center;margin:4px 0 6px;font-size:27px;color:#0f766e;
+  animation:attendanceTransition 2.5s ease-in-out infinite;
+}
+@keyframes attendanceTransition{
+  0%,100%{transform:scale(1);opacity:1;letter-spacing:0}
+  50%{transform:scale(1.08);opacity:.65;letter-spacing:2px}
+}
+.subtitle{text-align:center;color:#64748b;margin:0 0 20px;font-size:14px}
+.att-letter{display:inline-block;animation:letterInOut 2.8s ease-in-out infinite;animation-delay:calc(var(--i) * .11s)}
+@keyframes letterInOut{0%,100%{opacity:0;transform:translateY(-12px) scale(.75)}18%,72%{opacity:1;transform:translateY(0) scale(1)}88%{opacity:0;transform:translateY(12px) scale(.75)}}
+label{display:block;font-weight:700;margin:15px 0 7px;color:#334155}
+input{
+  width:100%;padding:13px 14px;border:1px solid #cbd5e1;
+  border-radius:12px;font-size:16px;outline:none;
+}
+input:focus{border-color:#22d3ee;box-shadow:0 0 0 2px #22d3ee,0 0 8px #22d3ee,0 0 18px rgba(34,211,238,.75);animation:neonFocus 1.4s ease-in-out infinite;caret-color:#0f172a}
+@keyframes neonFocus{0%,100%{box-shadow:0 0 0 2px #22d3ee,0 0 6px #22d3ee,0 0 14px rgba(34,211,238,.55)}50%{box-shadow:0 0 0 2px #67e8f9,0 0 12px #22d3ee,0 0 25px rgba(34,211,238,.9)}}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin-top:20px}
+.section-title label{margin:0}
+.add{
+  border:0;background:#0f766e;color:white;width:36px;height:36px;
+  border-radius:50%;font-size:23px;cursor:pointer;display:block;
+  margin-top:8px
+}
+.row{display:flex;gap:8px;margin-top:8px}
+.row input{flex:1}
+.remove{
+  width:40px;border:0;border-radius:10px;background:#fee2e2;
+  color:#b91c1c;font-size:20px;cursor:pointer
+}
+.hint{font-size:12px;color:#64748b;margin-top:5px}
+.buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+button.send{position:relative;overflow:hidden;border:0;padding:15px;border-radius:13px;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+button.send::before{content:"";position:absolute;top:0;left:-45%;width:40%;height:100%;background:linear-gradient(90deg,transparent,#fff,transparent);filter:drop-shadow(0 0 7px #fff);animation:buttonNeon 2.2s linear infinite;pointer-events:none}
+@keyframes buttonNeon{0%{left:-45%}100%{left:120%}}
+.wa{background:#16a34a;grid-column:1 / -1}
+#preview{
+  white-space:pre-wrap;background:#f8fafc;border:1px solid #e2e8f0;
+  border-radius:14px;padding:14px;margin-top:18px;font-size:14px;display:none
+}
+.footer{text-align:center;color:#cbd5e1;font-size:11px;margin-top:12px}
+@media(max-width:430px){.buttons{grid-template-columns:1fr}.card{padding:18px}}
+</style>
 </head>
-
 <body>
+<div class="container">
+  <div class="card">
+    <h1 id="attendanceTitle" aria-label="ATTENDANCE"></h1>
+    <p class="subtitle">PPS Daily Attendance</p>
 
-    <div class="maintenance-box">
+    <label>Attendance Date</label>
+    <input id="date" type="text" readonly>
 
-        <div class="icon">⚙️</div>
+    <label>Class Name</label>
+    <input id="className" type="text" placeholder="e.g. 9th A" autocomplete="off">
 
-        <h1>APP UNDER MAINTENANCE</h1>
+    <div class="section-title">
+      <label>Absent Students</label>
+    </div>
+    <div id="absentList"></div>
+    <button class="add" type="button" onclick="addStudent('absent')">+</button>
+    <div class="hint">Add one student per field.</div>
 
-        <div class="line"></div>
+    <div class="section-title">
+      <label>Students on Leave</label>
+    </div>
+    <div id="leaveList"></div>
+    <button class="add" type="button" onclick="addStudent('leave')">+</button>
+    <div class="hint">Add students who are on leave.</div>
 
-        <p>
-            Our app is currently under maintenance.
-            <br>
-            We are working to improve your experience.
-            <br>
-            Please check back soon.
-        </p>
+    <label>Form Master Name</label>
+    <input id="master" type="text" placeholder="Enter form master's name" autocomplete="off">
 
-        <div class="status">
-            TEMPORARILY UNAVAILABLE
-        </div>
-
+    <div class="buttons">
+      <button class="send wa" type="button" onclick="sendWhatsApp()">SEND ATTENDENCE</button>
+      
     </div>
 
+    <div id="preview"></div>
+  </div>
+  <div class="footer">Attendance Messenger • Mobile Friendly</div>
+</div>
+
+<script>
+const WHATSAPP_NUMBER="03099795054";
+let audioCtx;
+function playKeySound(deleting=false){
+  try{audioCtx ||= new (window.AudioContext||window.webkitAudioContext)(); if(audioCtx.state==="suspended") audioCtx.resume(); const o=audioCtx.createOscillator(),g=audioCtx.createGain(),n=audioCtx.currentTime; o.type="sine"; o.frequency.setValueAtTime(deleting?180:420,n); o.frequency.exponentialRampToValueAtTime(deleting?110:300,n+.045); g.gain.setValueAtTime(.0001,n); g.gain.exponentialRampToValueAtTime(deleting?.035:.025,n+.006); g.gain.exponentialRampToValueAtTime(.0001,n+.055); o.connect(g).connect(audioCtx.destination); o.start(n); o.stop(n+.06);}catch(e){}
+}
+
+function currentDeviceDate(){
+  const d=new Date();
+  const day=String(d.getDate()).padStart(2,'0');
+  const month=d.toLocaleString('en-US',{month:'long'});
+  const year=d.getFullYear();
+  return `${day} ${month} ${year}`;
+}
+document.getElementById("date").value=currentDeviceDate();
+
+function capitalizeWords(value){
+  return value.replace(/(^|\s)(\S)/g,(m,space,letter)=>space+letter.toUpperCase());
+}
+
+function addStudent(type){
+  const list=document.getElementById(type+"List");
+  const row=document.createElement("div");
+  row.className="row";
+  row.innerHTML=`<input type="text" class="${type}" placeholder="Student name">
+                 <button class="remove" type="button" onclick="this.parentElement.remove()">×</button>`;
+  list.appendChild(row);
+  const input=row.querySelector("input");
+  input.addEventListener("input",()=>{const pos=input.selectionStart;input.value=capitalizeWords(input.value);input.setSelectionRange(pos,pos);});
+  input.focus();
+}
+
+function getNames(cls){
+  return [...document.querySelectorAll("."+cls)]
+    .map(x=>x.value.trim()).filter(Boolean);
+}
+
+function bold(text){
+  return "*"+text+"*";
+}
+
+function makeMessage(){
+  const cls=document.getElementById("className").value.trim() || "CLASS";
+  const absent=getNames("absent");
+  const leave=getNames("leave");
+  const master=document.getElementById("master").value.trim();
+
+  let msg=`*CLASS ${cls}  |  ATTENDANCE*\n`;
+  msg+=`Date: ${document.getElementById("date").value}\n\n`;
+  msg+=`*ABSENT STUDENTS*\n`;
+
+  if(absent.length){
+    absent.forEach((student,i)=>{
+      msg+=`${i+1}. ${student}\n`;
+    });
+  }else{
+    msg+="No absent students\n";
+  }
+
+  msg+=`\n*STUDENTS ON LEAVE*\n`;
+  if(leave.length){
+    leave.forEach((student,i)=>{
+      msg+=`${i+1}. ${student}\n`;
+    });
+  }else{
+    msg+="None";
+  }
+  if(master){msg+=`\n\nForm Master: *${master}*`;}
+
+  return msg;
+}
+
+function sendWhatsApp(){
+  const msg=makeMessage();
+  const url="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(msg);
+  window.open(url,"_blank");
+}
+
+async function offlineMessage(){
+  const msg=makeMessage();
+  const preview=document.getElementById("preview");
+  preview.style.display="block";
+  preview.textContent=msg;
+
+  // Try the device share menu first.
+  if(navigator.share){
+    try{
+      await navigator.share({
+        title:"ATTENDENCE",
+        text:msg
+      });
+      return;
+    }catch(e){
+      // User cancelled sharing or the browser does not support it.
+    }
+  }
+
+  // Clipboard works on many HTTPS pages, but not all local HTML files.
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(msg);
+      alert("Attendance message copied. You can paste it into WhatsApp, SMS, or any other app.");
+      return;
+    }
+  }catch(e){}
+
+  // Reliable fallback for offline/local HTML files:
+  // select the generated message so the user can copy it manually.
+  try{
+    const range=document.createRange();
+    range.selectNodeContents(preview);
+    const selection=window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }catch(e){}
+
+  alert("The attendance message is shown below. Select and copy it, then paste it into WhatsApp, SMS, or any other app.");
+}
+addStudent("absent");
+addStudent("leave");
+document.getElementById("className").focus();
+document.addEventListener("input",e=>{if(e.target.matches("input")&&e.target.value)playKeySound(false);});
+document.addEventListener("keydown",e=>{if(e.target.matches("input")&&e.key==="Backspace")playKeySound(true);});
+const title=document.getElementById("attendanceTitle");
+"ATTENDANCE".split("").forEach((letter,i)=>{const s=document.createElement("span");s.className="att-letter";s.style.setProperty("--i",i);s.textContent=letter;title.appendChild(s);});
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+  });
+}
+</script>
 </body>
 </html>
