@@ -10,7 +10,7 @@
 *{box-sizing:border-box}
 body{
   margin:0; font-family:Arial,sans-serif; min-height:100vh;
-  background:linear-gradient(135deg,#0f172a,#164e63,#0f766e);
+  background:#ffffff;
   color:#0f172a; padding:18px 12px;
 }
 .container{max-width:620px;margin:auto}
@@ -18,7 +18,14 @@ body{
   background:rgba(255,255,255,.96); border-radius:24px;
   padding:22px; box-shadow:0 18px 50px rgba(0,0,0,.25);
 }
-h1{text-align:center;margin:4px 0 6px;font-size:27px;color:#0f766e}
+h1{
+  text-align:center;margin:4px 0 6px;font-size:27px;color:#0f766e;
+  animation:attendanceTransition 2.5s ease-in-out infinite;
+}
+@keyframes attendanceTransition{
+  0%,100%{transform:scale(1);opacity:1;letter-spacing:0}
+  50%{transform:scale(1.08);opacity:.65;letter-spacing:2px}
+}
 .subtitle{text-align:center;color:#64748b;margin:0 0 20px;font-size:14px}
 label{display:block;font-weight:700;margin:15px 0 7px;color:#334155}
 input{
@@ -30,7 +37,8 @@ input:focus{border-color:#0f766e;box-shadow:0 0 0 3px rgba(15,118,110,.12)}
 .section-title label{margin:0}
 .add{
   border:0;background:#0f766e;color:white;width:36px;height:36px;
-  border-radius:50%;font-size:23px;cursor:pointer
+  border-radius:50%;font-size:23px;cursor:pointer;display:block;
+  margin-top:8px
 }
 .row{display:flex;gap:8px;margin-top:8px}
 .row input{flex:1}
@@ -57,7 +65,7 @@ button.send{
 <div class="container">
   <div class="card">
     <h1>ATTENDANCE</h1>
-    <p class="subtitle">Daily attendance message generator</p>
+    <p class="subtitle">PPS Daily Attendance</p>
 
     <label>Attendance Date</label>
     <input id="date" type="text" readonly>
@@ -67,23 +75,23 @@ button.send{
 
     <div class="section-title">
       <label>Absent Students</label>
-      <button class="add" type="button" onclick="addStudent('absent')">+</button>
     </div>
     <div id="absentList"></div>
+    <button class="add" type="button" onclick="addStudent('absent')">+</button>
     <div class="hint">Add one student per field.</div>
 
     <div class="section-title">
       <label>Students on Leave</label>
-      <button class="add" type="button" onclick="addStudent('leave')">+</button>
     </div>
     <div id="leaveList"></div>
+    <button class="add" type="button" onclick="addStudent('leave')">+</button>
     <div class="hint">Add students who are on leave.</div>
 
     <label>Form Master Name</label>
     <input id="master" type="text" placeholder="Enter form master's name" autocomplete="off">
 
     <div class="buttons">
-      <button class="send wa" type="button" onclick="sendWhatsApp()">SEND ATTENDANCE</button>
+      <button class="send wa" type="button" onclick="sendWhatsApp()">SEND ATTENDENCE</button>
       
     </div>
 
@@ -129,7 +137,7 @@ function makeMessage(){
   const leave=getNames("leave");
   const master=document.getElementById("master").value.trim() || "________________";
 
-  let msg=`*${cls}  |  ATTENDANCE*\n`;
+  let msg=`*CLASS ${cls}  |  ATTENDANCE*\n`;
   msg+=`Date: ${document.getElementById("date").value}\n\n`;
   msg+=`*ABSENT STUDENTS*\n`;
 
