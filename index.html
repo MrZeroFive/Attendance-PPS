@@ -10,7 +10,7 @@
 *{box-sizing:border-box}
 body{
   margin:0; font-family:Arial,sans-serif; min-height:100vh;
-  background:#ffffff;
+  background:#ffffff;position:relative;overflow-x:hidden;
   color:#0f172a; padding:18px 12px; position:relative; overflow-x:hidden;
 }
 body::before{
@@ -37,6 +37,12 @@ input{
 }
 input:focus{border-color:#22d3ee;box-shadow:0 0 0 2px #22d3ee,0 0 8px #22d3ee,0 0 18px rgba(34,211,238,.75);animation:neonFocus 1.4s ease-in-out infinite;caret-color:#0f172a;caret-width:3px}
 @keyframes neonFocus{0%,100%{box-shadow:0 0 0 2px #22d3ee,0 0 6px #22d3ee,0 0 14px rgba(34,211,238,.55)}50%{box-shadow:0 0 0 2px #67e8f9,0 0 12px #22d3ee,0 0 25px rgba(34,211,238,.9)}}
+body.junior-theme input:focus{border-color:#f97316;box-shadow:0 0 0 2px #f97316,0 0 9px #f97316,0 0 20px rgba(249,115,22,.8)}
+body.senior-theme input:focus{border-color:#22c55e;box-shadow:0 0 0 2px #22c55e,0 0 9px #22c55e,0 0 20px rgba(34,197,94,.8)}
+body.junior-theme input:focus{animation:orangeFocus 1.4s ease-in-out infinite}
+body.senior-theme input:focus{animation:greenFocus 1.4s ease-in-out infinite}
+@keyframes orangeFocus{50%{box-shadow:0 0 0 2px #fb923c,0 0 14px #f97316,0 0 28px rgba(249,115,22,.95)}}
+@keyframes greenFocus{50%{box-shadow:0 0 0 2px #4ade80,0 0 14px #22c55e,0 0 28px rgba(34,197,94,.95)}}
 .section-title{display:flex;justify-content:space-between;align-items:center;margin-top:20px}
 .section-title label{margin:0}
 .add{
@@ -52,11 +58,12 @@ input:focus{border-color:#22d3ee;box-shadow:0 0 0 2px #22d3ee,0 0 8px #22d3ee,0 
 }
 .hint{font-size:12px;color:#64748b;margin-top:5px}
 .buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
-button.send{position:relative;isolation:isolate;overflow:hidden;border:0;padding:15px;border-radius:13px;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
-button.send::before{content:"";position:absolute;inset:-2px;border-radius:15px;background:conic-gradient(from 0deg,transparent 0deg,transparent 260deg,#22d3ee 292deg,#ffffff 315deg,#22d3ee 338deg,transparent 360deg);animation:sendNeonBorder 1.8s linear infinite;z-index:-2}
-button.send::after{content:"";position:absolute;inset:2px;border-radius:11px;background:#16a34a;z-index:-1}
+button.send{position:relative;isolation:isolate;overflow:hidden;border:0;padding:15px;border-radius:13px;color:#fff;font-size:15px;font-weight:800;cursor:pointer}
+button.send::before{content:"";position:absolute;inset:-3px;border-radius:16px;background:conic-gradient(from 0deg,transparent 0deg,transparent 250deg,#fff 275deg,#22d3ee 300deg,#fff 325deg,#22d3ee 345deg,transparent 360deg);animation:sendNeonBorder 1.7s linear infinite;z-index:-2;filter:blur(.4px)}
+button.send::after{content:"";position:absolute;inset:2px;border-radius:11px;z-index:-1}
+.female::after{background:#8b174d}.male::after{background:#116b45}
 @keyframes sendNeonBorder{to{transform:rotate(360deg)}}
-.wa{background:#16a34a;grid-column:1 / -1}
+.wa{background:#16a34a}
 #preview{
   white-space:pre-wrap;background:#f8fafc;border:1px solid #e2e8f0;
   border-radius:14px;padding:14px;margin-top:18px;font-size:14px;display:none
@@ -69,7 +76,7 @@ button.send::after{content:"";position:absolute;inset:2px;border-radius:11px;bac
 <div class="container">
   <div class="card">
     <h1 id="attendanceTitle" aria-label="ATTENDANCE"></h1>
-    <p class="subtitle">PPS DAILY ATTENDANCE</p>
+    <p class="subtitle"><strong>PPS DAILY ATTENDANCE</strong></p>
 
     <label>Attendance Date</label>
     <input id="date" type="text" readonly>
@@ -95,8 +102,8 @@ button.send::after{content:"";position:absolute;inset:2px;border-radius:11px;bac
     <input id="master" type="text" placeholder="Enter form master's name" autocomplete="off">
 
     <div class="buttons">
-      <button class="send wa" type="button" onclick="sendWhatsApp()">SEND ATTENDENCE</button>
-      
+      <button class="send female" type="button" onclick="sendWhatsApp('03400968477')">FEMALE STAFF</button>
+      <button class="send male" type="button" onclick="sendWhatsApp('03099795054')">MALE STAFF</button>
     </div>
 
     <div id="preview"></div>
@@ -183,9 +190,9 @@ function makeMessage(){
   return msg;
 }
 
-function sendWhatsApp(){
+function sendWhatsApp(number){
   const msg=makeMessage();
-  const url="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(msg);
+  const url="https://wa.me/"+number+"?text="+encodeURIComponent(msg);
   window.open(url,"_blank");
 }
 
