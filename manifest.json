@@ -1,0 +1,9 @@
+{
+  "name": "Attendance Messenger",
+  "short_name": "Attendance",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f766e",
+  "orientation": "portrait"
+}

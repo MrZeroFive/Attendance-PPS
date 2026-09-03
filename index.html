@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f766e">
+  <link rel="manifest" href="./manifest.json">
 <title>ATTENDANCE</title>
 <style>
 *{box-sizing:border-box}
@@ -81,7 +83,7 @@ button.send{
     <input id="master" type="text" placeholder="Enter form master's name" autocomplete="off">
 
     <div class="buttons">
-      <button class="send wa" type="button" onclick="sendWhatsApp()">SEND ATTENDANCE</button>
+      <button class="send wa" type="button" onclick="sendWhatsApp()">SEND ATTENDENCE</button>
       
     </div>
 
@@ -168,7 +170,7 @@ async function offlineMessage(){
   if(navigator.share){
     try{
       await navigator.share({
-        title:"ATTENDANCE",
+        title:"ATTENDENCE",
         text:msg
       });
       return;
@@ -201,6 +203,11 @@ async function offlineMessage(){
 addStudent("absent");
 addStudent("leave");
 document.getElementById("className").focus();
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
